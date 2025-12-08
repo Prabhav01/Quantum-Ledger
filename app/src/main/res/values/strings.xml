@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Capstone</string>
+    <string name="app_name">Quantum Ledger</string>
+    <string name="app_logo">Quantum Ledger App Logo</string>
 </resources>
