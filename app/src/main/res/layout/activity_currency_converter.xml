@@ -13,173 +13,176 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Header Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/primary"
-            android:layout_marginBottom="24dp">
+            app:cardBackgroundColor="@color/primary">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp"
+                android:padding="20dp"
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_currency"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_convert"
                     app:tint="@android:color/white"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="8dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Currency Converter"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"/>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/lastUpdatedText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Live Exchange Rates"
+                    android:text="Real-time exchange rates"
                     android:textColor="@android:color/white"
-                    android:alpha="0.8"
                     android:textSize="14sp"
-                    android:layout_marginTop="8dp"/>
+                    android:alpha="0.8"
+                    android:layout_marginTop="4dp"/>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="From"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="8dp"/>
-
-        <LinearLayout
+        <!-- From Currency Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
 
-            <Spinner
-                android:id="@+id/fromCurrencySpinner"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_background"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:layout_marginEnd="12dp"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fromAmountInput"
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="From"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="8dp"/>
+
+                <Spinner
+                    android:id="@+id/fromCurrencySpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
+                    android:minHeight="48dp"
+                    android:background="@drawable/spinner_background"
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Amount"
-                    android:textSize="18sp"/>
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/amountInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"/>
 
-        </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Conversion Icon -->
         <ImageView
-            android:id="@+id/swapButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_swap"
-            android:background="@drawable/icon_background"
-            android:padding="12dp"
             app:tint="@color/primary"
             android:layout_gravity="center"
-            android:layout_marginBottom="24dp"
-            android:contentDescription="Swap Currencies"/>
+            android:layout_marginVertical="8dp"/>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="To"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="8dp"/>
-
-        <LinearLayout
+        <!-- To Currency Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
 
-            <Spinner
-                android:id="@+id/toCurrencySpinner"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:background="@drawable/spinner_background"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:layout_marginEnd="12dp"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/primary">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/toAmountText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="8dp"/>
+
+                <Spinner
+                    android:id="@+id/toCurrencySpinner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="0.00"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:background="@drawable/spinner_background"
                     android:padding="12dp"/>
 
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout>
-
+        <!-- Convert Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/convertButton"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:text="Convert"
             android:textSize="16sp"
-            app:cornerRadius="12dp"
-            app:icon="@drawable/ic_convert"
-            style="@style/Widget.Material3.Button"
-            android:layout_marginBottom="16dp"/>
+            android:paddingVertical="12dp"
+            android:layout_marginBottom="24dp"/>
 
+        <!-- Loading Indicator -->
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <!-- Error Message -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/errorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Error message"
+            android:textSize="14sp"
+            android:textColor="@color/error"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"/>
+
+        <!-- Result Card -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/exchangeRateCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            android:visibility="gone">
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/success">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,23 +194,45 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Exchange Rate"
+                    android:text="Converted Amount"
+                    android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    android:textColor="@color/text_secondary"/>
+                    android:alpha="0.8"
+                    android:layout_marginBottom="8dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/exchangeRateText"
+                    android:id="@+id/resultText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1 USD = 0.85 EUR"
-                    android:textSize="20sp"
+                    android:text="0.00"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="@color/text_primary"
-                    android:layout_marginTop="8dp"/>
+                    android:visibility="gone"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/rateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exchange Rate"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:alpha="0.9"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"/>
 
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- API Info -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Powered by ExchangeRate-API.com"
+            android:textSize="12sp"
+            android:textColor="@color/text_hint"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"/>
 
     </LinearLayout>
 
