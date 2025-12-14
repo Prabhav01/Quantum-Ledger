@@ -2,7 +2,11 @@ package edu.iu.luddy.capstone
 
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ProgressBar
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -11,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 class CurrencyConverterActivity : AppCompatActivity() {
 
@@ -22,7 +26,7 @@ class CurrencyConverterActivity : AppCompatActivity() {
     private lateinit var resultText: MaterialTextView
     private lateinit var rateText: MaterialTextView
     private lateinit var loadingIndicator: ProgressBar
-    private lateinit var errorText: MaterialTextView
+    private lateinit var errorText: TextView
 
     private val api = ExchangeRateApi.create()
     private var currentRates: Map<String, Double>? = null
@@ -37,8 +41,6 @@ class CurrencyConverterActivity : AppCompatActivity() {
         initializeViews()
         setupSpinners()
         setupConvertButton()
-
-        // Load initial rates for USD
         loadExchangeRates("USD")
     }
 
@@ -63,13 +65,16 @@ class CurrencyConverterActivity : AppCompatActivity() {
         fromCurrencySpinner.adapter = adapter
         toCurrencySpinner.adapter = adapter
 
-        // Set default: USD to GBP (as shown in screenshot)
-        fromCurrencySpinner.setSelection(0) // USD
-        toCurrencySpinner.setSelection(2)   // GBP
+        fromCurrencySpinner.setSelection(0)
+        toCurrencySpinner.setSelection(2)
 
-        // Reload rates when base currency changes
         fromCurrencySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val baseCurrency = PopularCurrencies.currencyCodes[position]
                 loadExchangeRates(baseCurrency)
             }
@@ -97,33 +102,32 @@ class CurrencyConverterActivity : AppCompatActivity() {
 
                 if (response.isSuccessful && response.body() != null) {
                     val data = response.body()!!
+                    val result = data.result
+                    val rates = data.conversionRates
 
-                    // Check if the API call was successful
-                    if (data.result == "success") {
-                        currentRates = data.conversionRates
+                    if (result == "success" && rates != null && rates.isNotEmpty()) {
+                        currentRates = rates
                         hideError()
-
-                        // Auto-convert if amount is entered
                         if (!amountInput.text.isNullOrEmpty()) {
                             performConversion()
                         }
                     } else {
-                        showError("API returned error: ${data.result}")
+                        showError("API error: ${result ?: "unknown"}")
                     }
                 } else {
-                    showError("Failed to load rates. Status: ${response.code()}")
+                    showError("Failed to load rates: HTTP ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<ExchangeRateResponse>, t: Throwable) {
                 showLoading(false)
-                showError("Network error: ${t.message}\n\nCheck your internet connection")
+                showError("Network error: ${t.message ?: "unknown error"}")
             }
         })
     }
 
     private fun performConversion() {
-        val amountStr = amountInput.text.toString()
+        val amountStr = amountInput.text?.toString()?.trim() ?: ""
 
         if (amountStr.isEmpty()) {
             amountInput.error = "Please enter an amount"
@@ -131,23 +135,31 @@ class CurrencyConverterActivity : AppCompatActivity() {
         }
 
         val amount = amountStr.toDoubleOrNull()
-        if (amount == null || amount <= 0) {
+        if (amount == null || amount <= 0.0) {
             amountInput.error = "Please enter a valid amount"
             return
         }
 
-        if (currentRates == null) {
-            showError("Exchange rates not loaded. Please wait...")
+        val rates = currentRates
+        if (rates == null) {
+            showError("Exchange rates not loaded yet")
             return
         }
 
-        val fromPosition = fromCurrencySpinner.selectedItemPosition
-        val toPosition = toCurrencySpinner.selectedItemPosition
+        val fromIndex = fromCurrencySpinner.selectedItemPosition
+        val toIndex = toCurrencySpinner.selectedItemPosition
 
-        val fromCurrency = PopularCurrencies.currencyCodes[fromPosition]
-        val toCurrency = PopularCurrencies.currencyCodes[toPosition]
+        if (fromIndex !in PopularCurrencies.currencyCodes.indices ||
+            toIndex !in PopularCurrencies.currencyCodes.indices
+        ) {
+            showError("Invalid currency selection")
+            return
+        }
 
-        val toRate = currentRates!![toCurrency]
+        val fromCurrency = PopularCurrencies.currencyCodes[fromIndex]
+        val toCurrency = PopularCurrencies.currencyCodes[toIndex]
+
+        val toRate = rates[toCurrency]
         if (toRate == null) {
             showError("Rate not available for $toCurrency")
             return
@@ -155,7 +167,6 @@ class CurrencyConverterActivity : AppCompatActivity() {
 
         val convertedAmount = amount * toRate
 
-        // Display results
         val format = NumberFormat.getNumberInstance(Locale.US)
         format.minimumFractionDigits = 2
         format.maximumFractionDigits = 2

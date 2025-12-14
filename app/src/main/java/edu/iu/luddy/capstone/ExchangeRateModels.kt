@@ -2,32 +2,26 @@ package edu.iu.luddy.capstone
 
 import com.google.gson.annotations.SerializedName
 
-// Response from ExchangeRate API
 data class ExchangeRateResponse(
     @SerializedName("result")
-    val result: String,
-
+    val result: String?,
     @SerializedName("base_code")
-    val baseCode: String,
-
-    @SerializedName("conversion_rates")
-    val conversionRates: Map<String, Double>,
-
+    val baseCode: String?,
+    @SerializedName(value = "conversion_rates", alternate = ["rates"])
+    val conversionRates: Map<String, Double>?,
     @SerializedName("time_last_update_utc")
     val timeLastUpdate: String?
 )
 
-// Conversion result
 data class ConversionResult(
     val fromCurrency: String,
     val toCurrency: String,
     val fromAmount: Double,
     val toAmount: Double,
     val rate: Double,
-    val lastUpdate: String
+    val lastUpdate: String?
 )
 
-// Popular currencies for the app
 object PopularCurrencies {
     val currencies = listOf(
         "USD" to "US Dollar",
