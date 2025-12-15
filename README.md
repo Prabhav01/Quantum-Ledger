@@ -6,8 +6,8 @@ Semester: Fall 2025
 
 Group Number: 7
 ## Team Members & Contributions
-### [Prabhav Gudapati](https://github.iu.edu/pgudapat):
-Frontend & Lifecycle • XML layout design for 5 Activities with Material Design 3. • RecyclerView adapter and ViewHolder implementation. • Widget logic: Spinner, Checkboxes, DatePicker, Radio buttons. • Lifecycle handling: onSaveInstanceState, onPause, onResume. • Navigation: Menu system, Intents, Dialog/Snackbar feedback.
+### [Prabhav Gudapati](https://github.iu.edu/pgudapat): Frontend & Lifecycle
+Designed XML layouts for 5 Activities using Material Design 3 principles. Implemented RecyclerView adapters and ViewHolders for dynamic content display. Integrated UI widgets including Spinner, Checkboxes, DatePicker, and Radio buttons. Managed Activity lifecycle methods (onSaveInstanceState, onPause, onResume) for data persistence. Created navigation system with menu implementation, Intents, and user feedback through Dialogs and Snackbars.
 
-### [Mihir Sisodiya](https://github.iu.edu/msisodiy): 
-Backend & Logic • API integration: Retrofit configuration, HTTP requests, ExchangeRate API handling. • JSON parsing and data models (Transaction, Currency, Budget). • Budget tracking algorithm with threshold detection. • SharedPreferences for settings, transactions, and budgets. • Currency conversion logic and offline caching.
+### [Mihir Sisodiya](https://github.iu.edu/msisodiy): Backend & Logic
+Configured Retrofit for ExchangeRate API integration and HTTP requests. Implemented JSON parsing with data models (Transaction, Currency, Budget). Developed budget tracking algorithm featuring threshold detection. Built data persistence layer using SharedPreferences for settings, transactions, and budgets. Created currency conversion logic with offline caching capabilities.
