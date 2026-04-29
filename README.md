@@ -1,10 +1,5 @@
-# Capstone - Quantum Ledger 
+# Quantum Ledger 
 
-Course: CSCI-C 323: Mobile App Development
-
-Semester: Fall 2025
-
-Group Number: 7
 ## Team Members & Contributions
 ### [Prabhav Gudapati](https://github.iu.edu/pgudapat): Frontend & Lifecycle
 Designed XML layouts for 5 Activities using Material Design 3 principles. Implemented RecyclerView adapters and ViewHolders for dynamic content display. Integrated UI widgets including Spinner, Checkboxes, DatePicker, and Radio buttons. Managed Activity lifecycle methods (onSaveInstanceState, onPause, onResume) for data persistence. Created navigation system with menu implementation, Intents, and user feedback through Dialogs and Snackbars.
